@@ -19,27 +19,15 @@ Queen Movement Code
 
 using namespace std;
 
-bool legalMoveSpace (int originX, int originY, int destinationX int destinationY)
-{
-    if ((originX == destinationX && originY == destinationY) ||
-        !(originX >= 1 && originX <= 8) ||
-        !(originY >= 1 && originY <= 8) ||
-        !(destinationX >= 1 && destinationX <= 8) ||
-        !(destinationY >= 1 && destinationY <= 8))
-        return false;
-    /*else if (if piece is the same color as the current player)
-        return false;*/
-    else
-        return true;
-}
-
-bool checkForPositiveDiagonal(int originX, int originY, int destinationX, int destinationY)
+bool chessEngine::checkForPositiveDiagonal(int originX, int originY, int destinationX, int destinationY)
 {
     if (originX > destinationX)
     {
         for (int i = 1; originX + i < destinationX ; i++)
         {
-            if (board[originX + i][originY + i] != "") // Checks if space in the way is empty
+            if (board[originX + i][originY + i].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX + i][originY + i].find("30;1;") != string::npos)
                 return false;
         }
     }
@@ -48,7 +36,9 @@ bool checkForPositiveDiagonal(int originX, int originY, int destinationX, int de
     {
         for (int i = 1; originX - i > destinationX ; i++)
         {
-            if (board[originX - i][originY - i] != "") // Checks if space in the way is empty
+            if (board[originX - i][originY - i].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX - i][originY - i].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         }
     }
@@ -56,13 +46,15 @@ bool checkForPositiveDiagonal(int originX, int originY, int destinationX, int de
     return true;
 }
 
-bool checkForNegativeDiagonal(int originX, int originY, int destinationX, int destinationY)
+bool chessEngine::checkForNegativeDiagonal(int originX, int originY, int destinationX, int destinationY)
 {
     if (originX > destinationX)
     {
         for (int i = 1; originX + i < destinationX ; i++)
         {
-            if (board[originX + i][originY - i] != "") // Checks if space in the way is empty
+            if (board[originX + i][originY - i].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX + i][originY - i].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         }
     }
@@ -71,7 +63,9 @@ bool checkForNegativeDiagonal(int originX, int originY, int destinationX, int de
     {
         for (int i = 1; originX - i > destinationX ; i++)
         {
-            if (board[originX - i][originY + i] != "") // Checks if space in the way is empty
+            if (board[originX - i][originY + i].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX - i][originY + i].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         }
     }
@@ -79,13 +73,15 @@ bool checkForNegativeDiagonal(int originX, int originY, int destinationX, int de
     return true;
 }
 
-bool checkForHorizontal(int originX, int originY, int destinationX)
+bool chessEngine::checkForHorizontal(int originX, int originY, int destinationX)
 {
     if (originX > destinationX)
     {
         for (int i = 1; originX + i < destinationX ; i++)
         {
-            if (board[originX + i][originY] != "") // Checks if space in the way is empty
+            if (board[originX + i][originY].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX + i][originY].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         }   
     }
@@ -94,7 +90,9 @@ bool checkForHorizontal(int originX, int originY, int destinationX)
     {
         for (int i = 1; originX - i > destinationX ; i++)
         {
-            if (board[originX + i][originY] != "") // Checks if space in the way is empty
+            if (board[originX + i][originY].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX + i][originY].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         } 
     }
@@ -102,13 +100,15 @@ bool checkForHorizontal(int originX, int originY, int destinationX)
     return true;
 }
 
-bool checkForVertical(int originX, int originY, int destinationY)
+bool chessEngine::checkForVertical(int originX, int originY, int destinationY)
 {
     if (originY < destinationY) // Checks if move goes up or down
     {
         for (int i = 1; originY + i < destinationY ; i++)
         {
-            if (board[originX][originY + i] != "") // Checks if space in the way is empty
+            if (board[originX][originY + i].find("37;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+            else if (board[originX][originY + i].find("30;1;") != string::npos) // Checks if space in the way is empty
                 return false;
         }
     }  
@@ -117,15 +117,18 @@ bool checkForVertical(int originX, int originY, int destinationY)
     {
         for (int i = 1; originY - i > destinationY ; i++)
         {
-            if (board[originX][originY - i] != "") // Checks if space in the way is empty
+            if (board[originX][originY - i].find("37;1;") != string::npos) // Checks if space in the way is empty
                 return false;
+            else if (board[originX][originY - i].find("30;1;") != string::npos) // Checks if space in the way is empty
+                return false;
+
         }
     }
 }
 
 
 // [NOTE] Convert Coordinates into int prior to using function
-void chessEngine::queenMove(int originX, int originY, int destinationX int destinationY)
+bool chessEngine::queenMove(bool whiteTurn, int originX, int originY, int destinationX, int destinationY)
 {
     //Variable Declaration and Initalization/////////////////////////
     int distanceX, distanceY;
@@ -136,23 +139,21 @@ void chessEngine::queenMove(int originX, int originY, int destinationX int desti
     
     //Main Body//////////////////////////////////////////////////////
     if (distanceX == distanceY) // If the X and Y Distances are the same, the move is positve diagonal
-        legalMove = checkForDiagonal();
+        legalMove = chessEngine::checkForPositiveDiagonal(originX, originY, destinationX, destinationY);
     else if (-(distanceX) == distanceY) // If the X and Y distances are the same value but different parity, the move is negative diagonal
-        legalMove = checkForNegativeDiagonal();
+        legalMove = chessEngine::checkForNegativeDiagonal(originX, originY, destinationX, destinationY);
     else if (originX == destinationX) // If X coordinate of both origin and destination are the same, then the move is horizontal
-        legalMove = checkForHorizontal();
+        legalMove = chessEngine::checkForHorizontal(originX, originY, destinationX);
     else if (originY == destinationY) // If Y coordinate of both origin and destination are the same, then the move is vertical
-        legalMove = checkForVertical();
+        legalMove = chessEngine::checkForVertical(originX, originY, destinationY);
     else // All other cases, the move is not legal for the Queen
         legalMove = false;
 
     //Consequent/////////////////////////////////////////////////////
     if (legalMove)
-    {
-        board[originX][originY] = "";
-        board[endX]][endY] = queen;
-        cout << "Queen " << originX << originY << " move to " destinationX << destinationY << endl;
-    }
+        cout << "Queen " << originX << originY << " move to " << destinationX << destinationY << endl;
     else
         cout << "Illegal Move" << endl;
+
+    return legalMove;
 }
