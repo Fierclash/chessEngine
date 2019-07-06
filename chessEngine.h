@@ -32,4 +32,5 @@ class chessEngine {
 	private:
 		string board[SIZE][SIZE];
 		string pawn, rook, knight, bishop, king, queen;
+		
 };

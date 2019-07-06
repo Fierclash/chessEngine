@@ -130,14 +130,14 @@ bool chessEngine::checkForVertical(int originX, int originY, int destinationY)
 // [NOTE] Convert Coordinates into int prior to using function
 bool chessEngine::queenMove(bool whiteTurn, int originX, int originY, int destinationX, int destinationY)
 {
-    //Variable Declaration and Initalization/////////////////////////
+    //Variable Declaration and Initalization//////////////////////////
     int distanceX, distanceY;
     bool legalMove;
 
     distanceX = destinationX - originX;
     distanceY = destinationY - originY;
     
-    //Main Body//////////////////////////////////////////////////////
+    //Main Body///////////////////////////////////////////////////////
     if (distanceX == distanceY) // If the X and Y Distances are the same, the move is positve diagonal
         legalMove = chessEngine::checkForPositiveDiagonal(originX, originY, destinationX, destinationY);
     else if (-(distanceX) == distanceY) // If the X and Y distances are the same value but different parity, the move is negative diagonal
@@ -149,7 +149,7 @@ bool chessEngine::queenMove(bool whiteTurn, int originX, int originY, int destin
     else // All other cases, the move is not legal for the Queen
         legalMove = false;
 
-    //Consequent/////////////////////////////////////////////////////
+    //Consequent//////////////////////////////////////////////////////
     if (legalMove)
         cout << "Queen " << originX << originY << " move to " << destinationX << destinationY << endl;
     else
